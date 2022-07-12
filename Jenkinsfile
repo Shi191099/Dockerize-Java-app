@@ -6,7 +6,7 @@ agent any
     stages {
         stage ('Build') {
             steps {
-                git 'https://github.com/Shi191099/DevOps_Project2.git'
+                git 'https://github.com/Shi191099/Dockerize-Java-app.git'
                 sh 'mvn clean package'
             }
             
