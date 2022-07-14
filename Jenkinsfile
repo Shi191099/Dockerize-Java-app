@@ -30,15 +30,15 @@ agent any
                 sh 'docker build -t dockerize-java-app .'
             }
         }
-        stage ('push Docker img') {
-            steps {
-                withCredentials([string(credentialsId: 'docker-s3cret', variable: 'docker')]) {
-                    sh 'docker login -u shikashi -p ${docker}'
-                }
+//         stage ('push Docker img') {
+//             steps {
+//                 withCredentials([string(credentialsId: 'docker-s3cret', variable: 'docker')]) {
+//                     sh 'docker login -u shikashi -p ${docker}'
+//                 }
                 
-                sh 'docker push dockerize-java-app'
-            }
-        }
+//                 sh 'docker push dockerize-java-app'
+//             }
+//         }
         stage ('Run Container on Dev Server') {
             steps {
                 //variable dockerRun = 'docker run -d --name webapp -p 80:8080 shikashi/war'
