@@ -18,7 +18,7 @@ agent any
                     (
                         credentialsId: '5d352b89-ab10-4b92-922a-f2ef77e7f5dd', 
                         path: '', 
-                        url: 'http://13.127.77.90:8090/'
+                        url: 'http://3.109.143.45:8090'
                     )
                 ], 
                 contextPath: 'web', 
@@ -27,7 +27,7 @@ agent any
         }
         stage ('build Docker img') {
             steps {
-                sh 'docker build -t shikashi/web-war .'
+                sh 'docker build -t dockerize-java-app .'
             }
         }
         stage ('push Docker img') {
@@ -36,7 +36,7 @@ agent any
                     sh 'docker login -u shikashi -p ${docker}'
                 }
                 
-                sh 'docker push shikashi/web-war'
+                sh 'docker push dockerize-java-app'
             }
         }
         stage ('Run Container on Dev Server') {
@@ -44,7 +44,7 @@ agent any
                 //variable dockerRun = 'docker run -d --name webapp -p 80:8080 shikashi/war'
                 sshagent(['pem']) {
                     sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.18'
-                    sh 'docker run -d -P shikashi/web-war'
+                    sh 'docker run -d -P dockerize-java-app'
                 }
             }
         }
